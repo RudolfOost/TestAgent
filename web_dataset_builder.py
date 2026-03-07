@@ -200,7 +200,7 @@ class DatasetCrawlerApp:
         self.url_entry.pack(fill="x", pady=(4, 10))
 
         button_row = ttk.Frame(container)
-       button_row.pack(fill="x", pady=(0, 10))
+        button_row.pack(fill="x", pady=(0, 10))
 
         self.start_button = ttk.Button(button_row, text="Start Crawl", command=self.start_crawl)
         self.start_button.pack(side="left")
