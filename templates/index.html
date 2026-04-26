@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maaltijd Calorie Tracker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 2rem auto;
+        max-width: 900px;
+        line-height: 1.5;
+        padding: 0 1rem;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .small {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      button {
+        background: #0d6efd;
+        border: none;
+        color: white;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0a58ca;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📸 Maaltijd Calorie Tracker</h1>
+    <p>Maak een foto van je maaltijd met je telefoon en upload die hier. ChatGPT schat de calorieën en slaat dit op met datum/tijd.</p>
+
+    <div class="card">
+      <form action="/analyze" method="post" enctype="multipart/form-data">
+        <input type="file" name="photo" accept="image/*" capture="environment" required />
+        <button type="submit">Analyseer maaltijd</button>
+      </form>
+      <p class="small">Tip: open deze pagina op je telefoon voor direct een foto maken met de camera.</p>
+    </div>
+
+    <h2>Geschiedenis</h2>
+
+    {% if meals %}
+      {% for meal in meals %}
+        <div class="card">
+          <strong>{{ meal.total_calories }} kcal</strong>
+          <div class="small">{{ meal.created_at }} | {{ meal.photo_name }}</div>
+          <ul>
+            {% for item in meal.items %}
+              <li>{{ item.name }}: {{ item.estimated_calories }} kcal</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>Nog geen maaltijden opgeslagen.</p>
+    {% endif %}
+  </body>
+</html>
